@@ -38,7 +38,7 @@ public class TestAnimator implements Animator {
      */
     public int backgroundColor() {
         // create/return the background color
-        return Color.rgb(180, 200, 255);
+        return 0xFF00FF00;
     }
 
     /**
@@ -71,8 +71,8 @@ public class TestAnimator implements Animator {
         // (with the appropriate correction if the value was negative)
         // has the effect of "wrapping around" when we get to either end
         // (since our canvas size is 600 in each dimension).
-        int num = (count*15)%600;
-        if (num < 0) num += 600;
+        int num = (count*10)%2400;
+        if (num < 0) num += 2400;
 
         // Draw the ball in the correct position.
         Paint redPaint = new Paint();

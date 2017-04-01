@@ -27,7 +27,7 @@ import android.view.View.OnTouchListener;
 public class AnimationCanvas extends SurfaceView implements OnTouchListener{
 
     // instance variables
-    private TestAnimator animator; // our aninimator
+    private MyCannonAnimator animator; // our aninimator
     private CannonThread cannonThread = null; // thread to generate ticks
     private Paint backgroundPaint = new Paint();
 
@@ -41,7 +41,7 @@ public class AnimationCanvas extends SurfaceView implements OnTouchListener{
      * @param anim
      *            - the animator that will do the drawing
      */
-    public AnimationCanvas(Context context, TestAnimator anim) {
+    public AnimationCanvas(Context context, MyCannonAnimator anim) {
         super(context);
 
         // Tell the OS that *yes* I will draw stuff
