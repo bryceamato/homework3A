@@ -21,11 +21,19 @@ public class MyCannonAnimator implements Animator
     private Canvas canvas;
     private Rect cannon = new Rect(75, 900, 125, 1100);
     private Paint target1ColorsRed = new Paint();
-    private Paint targetColorsWhite = new Paint();
     private Paint target2ColorsRed = new Paint();
+    private Paint targetColorsWhite = new Paint();
     private Paint wheelColor = new Paint();
     private int scoreCount = 0;
     private int score = 0;
+    private Target target1;
+    private Target target2;
+    private Target target3;
+    private Target target4;
+    private Target target5;
+    private Target target6;
+    private Target target7;
+    private Target target8;
 
 
     @Override
@@ -97,14 +105,40 @@ public class MyCannonAnimator implements Animator
         ball = new CannonBall(175, 100, 1000, ballAngle, wind);
         ball.drawMe(canvas, count);
         this.drawCannon();
-        this.drawTargets();
+        target1 = new Target(1800f, 150f, 100f, target1ColorsRed);
+        target2 = new Target(1800f, 950f, 100f, target2ColorsRed);
+
+        targetColorsWhite.setColor(Color.WHITE);
+        target3 = new Target(1800f, 150f, 75f, targetColorsWhite);
+        target4 = new Target(1800f, 950f, 75f, targetColorsWhite);
+
+        target5 = new Target(1800f, 150f, 50f, target1ColorsRed);
+        target6 = new Target(1800f, 950f, 50f, target2ColorsRed);
+
+        target7 = new Target(1800f, 150f, 25f, targetColorsWhite);
+        target8 = new Target(1800f, 950f, 25f, targetColorsWhite);
+
+        wheelColor.setColor(0xFFA0522D);
+        canvas.drawCircle(100f, 1050f, 25f, wheelColor);
+
+        target1.drawMe(canvas, this.count);
+        target2.drawMe(canvas, this.count);
+        target3.drawMe(canvas, this.count);
+        target4.drawMe(canvas, this.count);
+        target5.drawMe(canvas, this.count);
+        target6.drawMe(canvas, this.count);
+        target7.drawMe(canvas, this.count);
+        target8.drawMe(canvas, this.count);
+
 
         //Did the ball strike a target?
-        if ((ball.getX() >= 1700) && (ball.getX() <= 1900) && (ball.getY() >= 50) && (ball.getY() <= 250))
+        if (target1.containsPoint(ball.getX(), ball.getY()))
         {
             //The top target was hit
             target1ColorsRed.setColor(Color.GREEN);
             ++scoreCount;
+            //Keeps track of score, there is a score count so that the score isn't incremented every time
+            //tick is called
             if(scoreCount == 1)
             {
                 ++score;
@@ -113,11 +147,13 @@ public class MyCannonAnimator implements Animator
         {
             target1ColorsRed.setColor(Color.RED);
         }
-        if ((ball.getX() >= 1700) && (ball.getX() <= 1900) && (ball.getY() >= 850) && (ball.getY() <= 1050))
+        if (target2.containsPoint(ball.getX(), ball.getY()))
         {
             //The bottom target was hit
             target2ColorsRed.setColor(Color.GREEN);
             ++scoreCount;
+            //Keeps track of score, there is a score count so that the score isn't incremented every time
+            //tick is called
             if(scoreCount == 1)
             {
                 ++score;
@@ -128,26 +164,6 @@ public class MyCannonAnimator implements Animator
         }
     }
 
-    public void drawTargets()
-    {
-        //Draws the 2 targets in a bullseye design
-
-        canvas.drawCircle(1800f, 150f, 100f, target1ColorsRed);
-        canvas.drawCircle(1800f, 950f, 100f, target2ColorsRed);
-
-        targetColorsWhite.setColor(Color.WHITE);
-        canvas.drawCircle(1800f, 150f, 75f, targetColorsWhite);
-        canvas.drawCircle(1800f, 950f, 75f, targetColorsWhite);
-
-        canvas.drawCircle(1800f, 150f, 50f, target1ColorsRed);
-        canvas.drawCircle(1800f, 950f, 50f, target2ColorsRed);
-
-        canvas.drawCircle(1800f, 150f, 25f, targetColorsWhite);
-        canvas.drawCircle(1800f, 950f, 25f, targetColorsWhite);
-
-        wheelColor.setColor(0xFFA0522D);
-        canvas.drawCircle(100f, 1050f, 25f, wheelColor);
-    }
 
     public void drawCannon()
     {
