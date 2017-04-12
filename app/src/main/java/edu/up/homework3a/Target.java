@@ -14,9 +14,6 @@ public class Target
     private float yPos;
     private float radius;
     private Paint myPaint;
-    private int factor = -5;
-    boolean movingRight;
-    private int delta = -5;
 
 
     public Target(float initX, float initY, float initRad, Paint initPaint)
@@ -27,14 +24,9 @@ public class Target
         this.myPaint = initPaint;
     }
 
-    public void setPaint(Paint newPaint)
+    public float getXPos()
     {
-        this.myPaint = newPaint;
-    }
-
-    public void setRight(boolean direction)
-    {
-        this.movingRight = direction;
+        return this.xPos;
     }
 
     public boolean containsPoint(int ballX, int ballY)
@@ -49,17 +41,7 @@ public class Target
 
     public void drawMe(Canvas g, int count)
     {
-        this.xPos = this.xPos + delta * count;
-        if(this.xPos < 1700)
-        {
-            this.delta *= -1;
-            this.xPos = 1700;
-        }else if(this.xPos > 1810)
-        {
-            this.delta *= -1;
-            this.xPos = 1810;
-        }
-
+        this.xPos = xPos - (count * 5);
         g.drawCircle(this.xPos, this.yPos, this.radius, this.myPaint);
 
     }

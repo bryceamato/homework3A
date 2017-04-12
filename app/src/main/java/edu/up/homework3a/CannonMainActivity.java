@@ -1,6 +1,8 @@
 package edu.up.homework3a;
 
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,13 +14,20 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 /*
+    Bryce Amato
+    April 11, 2017
+
     For homework 3 part B I have included the following additions:
 
      -Wind Speed
      -Ability to modify wind speed
      -Score counter that will add exactly 1 point every time
-
+     -The cannon makes noise when fired
+     -The targets move to the left and then start over
  */
+
+
+
 
 /**
  * CannonMainActivity
@@ -26,15 +35,8 @@ import android.widget.TextView;
  * This is the activity for the cannon animation. It creates a AnimationCanvas
  * containing a particular Animator object
  *
- * TODO for homework 3B make targets move back and forth--- may have to make new class to do so (8)
- *
- * TODO for 3b make orange circle "explosion" on cannon (7)
- *
- * TODO ball rolling(10)
- *
- * TODO maybe make a green bottom representing grass and have ball roll on that
- *
  * @author Andrew Nuxoll
+ * @author bryce
  * @version September 2012
  *
  */
@@ -55,6 +57,10 @@ public class CannonMainActivity extends Activity {
     private SeekBar windSeekBar;
     private TextView scoreTextView;
     private TextView windTextView;
+
+    private int pickupId;
+
+    private SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,7 @@ public class CannonMainActivity extends Activity {
                 .findViewById(R.id.animationLayout);
         mainLayout.addView(myCanvas);
 
+        this.pickupId = soundPool.load(this, R.raw.cannon, 1);
 
 
         myAnim.setAngle(45);
@@ -91,6 +98,7 @@ public class CannonMainActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
+                soundPool.play(pickupId, 1, 1, 1, 0, 1.0f);
                 myAnim.setFire(true);
                 myAnim.setWind(wind);
                 myAnim.setBallAngle(Math.toRadians(angle));

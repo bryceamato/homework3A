@@ -24,6 +24,7 @@ public class MyCannonAnimator implements Animator
     private Paint target2ColorsRed = new Paint();
     private Paint targetColorsWhite = new Paint();
     private Paint wheelColor = new Paint();
+    private int targetCount = 0;
     private int scoreCount = 0;
     private int score = 0;
     private Target target1;
@@ -77,6 +78,7 @@ public class MyCannonAnimator implements Animator
         this.angle = initAngle;
     }
 
+    //sets wind speed in x direction based on the wind seekbar
     public void setWind(int initWind)
     {
         this.wind = initWind;
@@ -100,6 +102,7 @@ public class MyCannonAnimator implements Animator
     {
         this.canvas = canvas;
         ++count;
+        ++targetCount;
 
         //Draw all of the elements
         ball = new CannonBall(175, 100, 1000, ballAngle, wind);
@@ -121,15 +124,21 @@ public class MyCannonAnimator implements Animator
         wheelColor.setColor(0xFFA0522D);
         canvas.drawCircle(100f, 1050f, 25f, wheelColor);
 
-        target1.drawMe(canvas, this.count);
-        target2.drawMe(canvas, this.count);
-        target3.drawMe(canvas, this.count);
-        target4.drawMe(canvas, this.count);
-        target5.drawMe(canvas, this.count);
-        target6.drawMe(canvas, this.count);
-        target7.drawMe(canvas, this.count);
-        target8.drawMe(canvas, this.count);
+        //draws the targets on the animation canvas
+        target1.drawMe(canvas, this.targetCount);
+        target2.drawMe(canvas, this.targetCount);
+        target3.drawMe(canvas, this.targetCount);
+        target4.drawMe(canvas, this.targetCount);
+        target5.drawMe(canvas, this.targetCount);
+        target6.drawMe(canvas, this.targetCount);
+        target7.drawMe(canvas, this.targetCount);
+        target8.drawMe(canvas, this.targetCount);
 
+        //When the targets get to 1000, start over
+        if(target1.getXPos() == 1000)
+        {
+            this.targetCount = 0;
+        }
 
         //Did the ball strike a target?
         if (target1.containsPoint(ball.getX(), ball.getY()))
