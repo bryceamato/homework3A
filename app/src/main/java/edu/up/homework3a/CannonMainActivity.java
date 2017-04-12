@@ -91,7 +91,6 @@ public class CannonMainActivity extends Activity {
         myAnim.setAngle(45);
         this.angle = 45;
         this.wind = 0;
-        //myAnim.setFire(false);
 
         fireButton.setOnTouchListener(new Button.OnTouchListener()
         {
